@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://ctbia6qpsxaqu"]
+
+[ext_resource type="Script" uid="uid://cbkijdy6hm0pf" path="res://Detector de renderização/DetectorDeRenderização.cs" id="1_ch6i2"]
+
+[node name="Detector de Renderização" type="VisibleOnScreenEnabler2D" unique_id=675967669]
+rect = Rect2(-10, -10, 22, 20)
+script = ExtResource("1_ch6i2")
+
+[connection signal="screen_entered" from="." to="." method="OnScreenEntered"]

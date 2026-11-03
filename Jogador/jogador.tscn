@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://cx7n62qxyfe1n"]
+
+[ext_resource type="Script" uid="uid://cbwoflh77el4j" path="res://Jogador/Jogador.cs" id="1_088gh"]
+[ext_resource type="Texture2D" uid="uid://evg7ebj1e7wo" path="res://Tile Sets/Player.png" id="2_damf5"]
+[ext_resource type="PackedScene" uid="uid://c75y4ykdry7pm" path="res://Jogador/CorpoJogadorHUD/JogadorCorpoHUD.tscn" id="3_damf5"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7xlsb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_damf5")
+}],
+"loop": 1,
+"name": &"Baixo Parado",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2y62h"]
+size = Vector2(46, 52)
+
+[node name="Jogador" type="CharacterBody2D" unique_id=1753218373]
+script = ExtResource("1_088gh")
+
+[node name="Animação Jogador" type="AnimatedSprite2D" parent="." unique_id=1270425994]
+scale = Vector2(0.49999997, 0.52)
+sprite_frames = SubResource("SpriteFrames_7xlsb")
+animation = &"Baixo Parado"
+
+[node name="Colisão Jogador" type="CollisionShape2D" parent="." unique_id=2069188713]
+position = Vector2(4, -14)
+shape = SubResource("RectangleShape2D_2y62h")
+
+[node name="HUD Jogador" type="CanvasLayer" parent="." unique_id=1629645474]
+
+[node name="JogadorCorpoHUD" parent="HUD Jogador" unique_id=1307488085 instance=ExtResource("3_damf5")]
+offset_left = -431.44003
+offset_top = 494.912
+offset_right = -748.56006
+offset_bottom = -151.96808
+scale = Vector2(0.17, 0.17)

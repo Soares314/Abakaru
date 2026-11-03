@@ -1,0 +1,20 @@
+[remap]
+
+importer="texture_atlas"
+type="Texture2D"
+uid="uid://cucie2pnsuwow"
+path="res://.godot/imported/terra02.png-00db05dbbec07ce388dd9a8cc305b612.res"
+group_file="res://Tile Sets/Tilesets/Tile Sets Terra.png"
+valid=true
+[deps]
+
+
+source_file="res://Tile Sets/Tilesets/terra02.png"
+dest_files=["res://.godot/imported/terra02.png-00db05dbbec07ce388dd9a8cc305b612.res"]
+
+[params]
+
+atlas_file="res://Tile Sets/Tilesets/Tile Sets Terra.png"
+import_mode=0
+crop_to_region=false
+trim_alpha_border_from_region=true

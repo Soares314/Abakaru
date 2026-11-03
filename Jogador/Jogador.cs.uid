@@ -1,0 +1,16 @@
+uid://cbwoflh77el4j
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_damf5"]
+size = Vector2(17, 28.5)
+
+[node name="Jogador" type="CharacterBody2D"]
+script = ExtResource("1_damf5")
+Aceleracao = 300
+
+[node name="Animação do Jogador" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_plpwr")
+animation = &"ParadoBaixo"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 2.75)
+shape = SubResource("RectangleShape2D_damf5")

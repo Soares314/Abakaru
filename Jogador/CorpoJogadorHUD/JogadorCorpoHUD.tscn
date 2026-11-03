@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://c75y4ykdry7pm"]
+
+[ext_resource type="Texture2D" uid="uid://c0w54jwqcif2f" path="res://Tile Sets/HUDJogador/CabeçaHUD.png" id="1_imr8n"]
+[ext_resource type="Texture2D" uid="uid://bvai6nf5dyr77" path="res://Tile Sets/HUDJogador/TroncoHUD.png" id="2_tqh2e"]
+[ext_resource type="Texture2D" uid="uid://bq8ruwkh3rq0h" path="res://Tile Sets/HUDJogador/BraçoHUD.png" id="3_c3hjd"]
+[ext_resource type="Texture2D" uid="uid://8wd43iq35psm" path="res://Tile Sets/HUDJogador/PernaHUD.png" id="4_iy0g1"]
+
+[node name="JogadorCorpoHUD" type="Control" unique_id=1307488085]
+layout_mode = 3
+anchor_left = 0.34500003
+anchor_top = 0.031000001
+anchor_right = 0.65500003
+anchor_bottom = 1.0910001
+offset_left = -397.44003
+offset_top = -20.088001
+offset_right = -714.56006
+offset_bottom = -666.9681
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+
+[node name="Cabeca" type="TextureRect" parent="." unique_id=641911105]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 12.6
+anchor_top = 1.1750001
+anchor_right = 16.275002
+anchor_bottom = 4.275
+offset_left = -4.0
+offset_top = -11.000004
+offset_right = -15.000061
+offset_bottom = -22.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+texture = ExtResource("1_imr8n")
+
+[node name="Tronco" type="TextureRect" parent="." unique_id=611739497]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 12.250001
+anchor_top = 4.75
+anchor_right = 16.575
+anchor_bottom = 10.6
+offset_left = 6.9999695
+offset_top = -27.0
+offset_right = -17.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_tqh2e")
+expand_mode = 1
+
+[node name="BracoD" type="TextureRect" parent="." unique_id=1852662823]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 9.85
+anchor_top = 5.4
+anchor_right = 11.175
+anchor_bottom = 11.225
+offset_left = 34.0
+offset_top = -41.0
+offset_right = 34.0
+offset_bottom = -41.0
+grow_vertical = 0
+texture = ExtResource("3_c3hjd")
+
+[node name="BracoE" type="TextureRect" parent="." unique_id=1172038349]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 17.625
+anchor_top = 5.3
+anchor_right = 18.975
+anchor_bottom = 11.200001
+offset_left = -33.0
+offset_top = -30.0
+offset_right = -33.0
+offset_bottom = -30.00003
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("3_c3hjd")
+
+[node name="PernaD" type="TextureRect" parent="." unique_id=741403273]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 12.425
+anchor_top = 11.375001
+anchor_right = 13.85
+anchor_bottom = 17.175001
+offset_left = 95.0
+offset_top = -58.00003
+offset_right = 93.0
+offset_bottom = -60.00006
+texture = ExtResource("4_iy0g1")
+
+[node name="PernaE" type="TextureRect" parent="." unique_id=303244404]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 15.075001
+anchor_top = 11.475
+anchor_right = 16.35
+anchor_bottom = 17.225
+offset_left = -94.0
+offset_top = -62.0
+offset_right = -86.0
+offset_bottom = -62.0
+texture = ExtResource("4_iy0g1")

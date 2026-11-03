@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://gocorerbo7rr"]
+
+[ext_resource type="Script" uid="uid://b5ty4qa3sgs03" path="res://Personagens/Personagem.cs" id="1_4wglj"]
+[ext_resource type="Texture2D" uid="uid://evg7ebj1e7wo" path="res://Tile Sets/Player.png" id="2_rg6vp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7xlsb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_rg6vp")
+}],
+"loop": 1,
+"name": &"Baixo Parado",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_damf5"]
+size = Vector2(35.333336, 45.333336)
+
+[node name="Personagem" type="CharacterBody2D" unique_id=1753218373]
+script = ExtResource("1_4wglj")
+
+[node name="Animação Jogador" type="AnimatedSprite2D" parent="." unique_id=1270425994]
+position = Vector2(-1, 0)
+scale = Vector2(0.62, 0.655)
+sprite_frames = SubResource("SpriteFrames_7xlsb")
+animation = &"Baixo Parado"
+
+[node name="Colisão Jogador" type="CollisionShape2D" parent="." unique_id=2069188713]
+position = Vector2(4.5000005, -18)
+scale = Vector2(1.5, 1.5)
+shape = SubResource("RectangleShape2D_damf5")

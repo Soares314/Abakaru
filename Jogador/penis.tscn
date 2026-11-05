@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bl0an761b73ay"]
+
+[ext_resource type="PackedScene" uid="uid://cx7n62qxyfe1n" path="res://Jogador/jogador.tscn" id="1_nnq1i"]
+
+[node name="Jogador" unique_id=1753218373 instance=ExtResource("1_nnq1i")]
+scale = Vector2(0.1, 0.1)

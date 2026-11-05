@@ -30,3 +30,7 @@ animation = &"Baixo Parado"
 position = Vector2(4.5000005, -18)
 scale = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_damf5")
+
+[node name="Alcance Personagem" type="RayCast2D" parent="." unique_id=428304891]
+
+[node name="Animação Jogador Real" type="AnimationPlayer" parent="." unique_id=41139774]

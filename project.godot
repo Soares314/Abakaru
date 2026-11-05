@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Abakaru"
-run/main_scene="uid://demli2c0ac6cf"
+run/main_scene="uid://btcy7q6sxtmnk"
 config/features=PackedStringArray("4.7", "C#", "Mobile")
 config/icon="res://icon.svg"
 

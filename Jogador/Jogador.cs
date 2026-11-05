@@ -40,6 +40,6 @@ public partial class Jogador : Personagem
 				CollidingObject = null;
 		}
 
-		GD.Print(CollidingObject);
+		// GD.Print(CollidingObject);
 	}
 }

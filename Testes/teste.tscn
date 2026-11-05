@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://btcy7q6sxtmnk"]
+
+[ext_resource type="PackedScene" uid="uid://o5q7bnyxv4bm" path="res://Personagens/Caminho Automatizado/caminho_automatizado.tscn" id="1_y7phr"]
+[ext_resource type="PackedScene" uid="uid://gocorerbo7rr" path="res://Personagens/personagem.tscn" id="2_5o8em"]
+[ext_resource type="Script" uid="uid://dbpwunucptyst" path="res://ComportamentosIA/Comportamento.cs" id="3_5o8em"]
+
+[sub_resource type="Resource" id="Resource_fjlmr"]
+script = ExtResource("3_5o8em")
+metadata/_custom_type_script = "uid://dbpwunucptyst"
+
+[node name="Teste" type="Node2D" unique_id=17333377]
+
+[node name="Caminho Automatizado" parent="." unique_id=402756422 instance=ExtResource("1_y7phr")]
+position = Vector2(400, 300)
+scale = Vector2(3.2, 3.2)
+
+[node name="Personagem" parent="Caminho Automatizado" unique_id=1753218373 instance=ExtResource("2_5o8em")]
+position = Vector2(-1.25, -2.8125)
+scale = Vector2(0.31249997, 0.31249997)
+SerieComportamentos = Array[Object]([SubResource("Resource_fjlmr")])

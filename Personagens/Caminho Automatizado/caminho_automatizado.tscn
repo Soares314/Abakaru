@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://o5q7bnyxv4bm"]
+
+[ext_resource type="Curve2D" uid="uid://dlj5utnx1uanb" path="res://ComportamentosIA/Formas de Andar/Circulo.tres" id="1_kk370"]
+[ext_resource type="Script" uid="uid://bmnmkv2mwcede" path="res://Personagens/Caminho Automatizado/CaminhoAutomatizado.cs" id="1_m41bm"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_2y62h"]
+
+[node name="Caminho Automatizado" type="Path2D" unique_id=402756422]
+scale = Vector2(9, 9)
+curve = ExtResource("1_kk370")
+script = ExtResource("1_m41bm")
+
+[node name="Rota Personagem" type="PathFollow2D" parent="." unique_id=134392667]
+position = Vector2(-25.411427, -30)
+rotation = -0.006451523
+progress = 14.61
+rotates = false
+
+[node name="Detector Colisão" type="Area2D" parent="." unique_id=719778098]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detector Colisão" unique_id=101196531]
+shape = SubResource("SegmentShape2D_2y62h")
+
+[connection signal="body_entered" from="Detector Colisão" to="." method="OnDetectorColisãoBodyEntered"]

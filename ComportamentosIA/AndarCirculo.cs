@@ -14,8 +14,4 @@ public partial class AndarCirculo : Comportamento
 			AndandoCirculo = false;
 		}
 	}
-	public override void OnChamouAtencao()
-	{
-		Ativo = false;
-	}
 }

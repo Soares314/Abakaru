@@ -20,6 +20,6 @@ public partial class Comportamento : Resource
 	}
 	public virtual void OnChamouAtencao()
 	{
-		return;
+		Ativo = false;
 	}
 }

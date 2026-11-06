@@ -23,6 +23,7 @@ public partial class CaminhoAutomatizado : Path2D
 
 		AreaColisao = GetNode<Area2D>("Detector Colisão");
 
+		// Define a velocidade que move o objeto
 		if(ObjetoMovido is Personagem)
 		{
 			Personagem objetoMovidoAsPersonagem = ObjetoMovido as Personagem;

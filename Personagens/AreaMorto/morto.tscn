@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://c356o3n6f261j"]
+
+[ext_resource type="Script" uid="uid://daj4adl05t58k" path="res://Personagens/AreaMorto/Morto.cs" id="1_yftkx"]
+[ext_resource type="Texture2D" uid="uid://bpyna8e5pu7x" path="res://Sprites/Inimigos/Morto.png" id="2_kp4nh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ylgm4"]
+radius = 72.249565
+
+[node name="Morto" type="Area2D" unique_id=387129729]
+script = ExtResource("1_yftkx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=910008167]
+shape = SubResource("CircleShape2D_ylgm4")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1853977449]
+texture = ExtResource("2_kp4nh")

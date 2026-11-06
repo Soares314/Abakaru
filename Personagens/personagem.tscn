@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://gocorerbo7rr"]
 
 [ext_resource type="Script" uid="uid://b5ty4qa3sgs03" path="res://Personagens/Personagem.cs" id="1_4wglj"]
-[ext_resource type="Texture2D" uid="uid://evg7ebj1e7wo" path="res://Tile Sets/Player.png" id="2_rg6vp"]
+[ext_resource type="Texture2D" uid="uid://evg7ebj1e7wo" path="res://Sprites/Player.png" id="2_rg6vp"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7xlsb"]
 animations = [{
@@ -32,5 +32,11 @@ scale = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_damf5")
 
 [node name="Alcance Personagem" type="RayCast2D" parent="." unique_id=428304891]
+target_position = Vector2(0, 1)
 
 [node name="Animação Jogador Real" type="AnimationPlayer" parent="." unique_id=41139774]
+
+[node name="Visão" type="Area2D" parent="." unique_id=264130085]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Visão" unique_id=781738944]
+polygon = PackedVector2Array(0, 0, -200, 400, 200, 400)

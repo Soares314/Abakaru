@@ -17,7 +17,7 @@ public partial class Jogador : Personagem
 
 		if (Input.IsActionJustPressed("Interagir") && CollidingObject != null)
 			EmitSignal(SignalName.PlayerInteracted, CollidingObject);
-			
+		        						
 		// Handles movement.
 		if (direction != Vector2.Zero)
 		{
@@ -27,7 +27,7 @@ public partial class Jogador : Personagem
         {
             velocity.X = Mathf.MoveToward(velocity.X * 0.3f, 0, Status["Velocidade"] * (float)delta);
             velocity.Y = Mathf.MoveToward(velocity.Y * 0.3f, 0, Status["Velocidade"] * (float)delta);
-        }
+        }	
 
 		Velocity = velocity;
 		MoveAndSlide();

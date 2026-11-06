@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvai6nf5dyr77"
-path="res://.godot/imported/TroncoHUD.png-0b88e37260b4bee8e9cd28545a6728f3.ctex"
+uid="uid://dearflbb3fpwb"
+path="res://.godot/imported/Tile Sets Terra.png-062efe2a2921466bde69bf36b7dcbbb6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Tile Sets/HUDJogador/TroncoHUD.png"
-dest_files=["res://.godot/imported/TroncoHUD.png-0b88e37260b4bee8e9cd28545a6728f3.ctex"]
+source_file="res://Sprites/Tilesets/Tile Sets Terra.png"
+dest_files=["res://.godot/imported/Tile Sets Terra.png-062efe2a2921466bde69bf36b7dcbbb6.ctex"]
 
 [params]
 

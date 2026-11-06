@@ -4,9 +4,16 @@ using Godot.Collections;
 
 public partial class Personagem : CharacterBody2D
 {
-	public RayCast2D RaioCalculo;
+	private enum Estado
+	{
+		EM_ACAO,
+		PARADO,
+	}
+	public Vector2 PosicaoAnterior;
+	public RayCast2D RaioDirecao;
 
 	private CaminhoAutomatizado RotaPersonagem;
+	private Area2D AreaVisao;
 
 	[Export]
 	public Dictionary<string, int> Status = new Dictionary<string, int>()
@@ -30,15 +37,25 @@ public partial class Personagem : CharacterBody2D
 	};
 
 	[Export]
-	public Array<Comportamento> SerieComportamentos;
+	public Array<Arma> Armas = [new Arma()];
+	Estado EstadoPersonagem = Estado.EM_ACAO;
+
+	[Export]
+	public Array<Comportamento> SerieComportamentos = [new Comportamento()];
+	[Export]	
+	public Aspecto AspectoPersonagem = new Aspecto();
+	[Export]
+	public bool Especial = false;
 	[Signal]
 	public delegate void ChamouAtencaoEventHandler();
 	private bool VisaoColidiuComTile = false;
 
     public override void _Ready()
     {
-        RaioCalculo = GetNodeOrNull<RayCast2D>("Alcance Personagem");
+        RaioDirecao = GetNodeOrNull<RayCast2D>("Alcance Personagem");
 
+		AreaVisao = GetNodeOrNull<Area2D>("Visão");
+ 
 		if(GetParent() is CaminhoAutomatizado)
 		{
 			RotaPersonagem = GetParent<CaminhoAutomatizado>();
@@ -48,15 +65,27 @@ public partial class Personagem : CharacterBody2D
 		{
 			comportamento.InicializarComportamento(this);
 		}
+		GD.Print("Chaves: ", string.Join(", ", Status.Keys));
+
     }
 
     public override void _PhysicsProcess(double delta)
     {
-
         foreach (Comportamento comportamento in SerieComportamentos)
 		{
 			comportamento.AtiveComportamento();
 		}
+
+		// Atualiza RaioDirecao para indicar a direção que está e e sua área de visão
+		RaioDirecao.TargetPosition = (GlobalPosition - PosicaoAnterior).Normalized();
+
+		if (RaioDirecao.TargetPosition.LengthSquared() > 0.01f)
+		{
+			AreaVisao.Rotation = RaioDirecao.TargetPosition.Angle() - Mathf.Pi / 2f;
+		}
+
+		PosicaoAnterior = GlobalPosition;
+
     }
 
 	public void AnimePersonagem(string tipoAnimacao)
@@ -70,19 +99,25 @@ public partial class Personagem : CharacterBody2D
 	
 	*/
 
+	// Para personagem olhar e retornar os personagens que está olhando
+	public bool Olhou(Node objeto)
+	{
+		return AreaVisao.OverlapsBody(objeto);
+	}
+
 	// Verifica se o ataque está ao alcance do personagem
 	public bool EstarAoAlcance()
 	{
-		RaioCalculo.TargetPosition *= Status["AlcanceAtaque"];
+		RaioDirecao.TargetPosition *= Status["AlcanceAtaque"];
 
-		if (RaioCalculo.IsColliding())
+		if (RaioDirecao.IsColliding())
 		{
-			RaioCalculo.TargetPosition = RaioCalculo.TargetPosition.Normalized();
+			RaioDirecao.TargetPosition = RaioDirecao.TargetPosition.Normalized();
 			return true;
 		}
 		else
 		{
-			RaioCalculo.TargetPosition = RaioCalculo.TargetPosition.Normalized();
+			RaioDirecao.TargetPosition = RaioDirecao.TargetPosition.Normalized();
 			return false;
 		}
 	}
@@ -140,27 +175,35 @@ public partial class Personagem : CharacterBody2D
 	
 	*/
 
+	// Ação para parar, o personagem não pode ser movido
+	public void Parar()
+	{
+		EstadoPersonagem = Estado.PARADO;
+	}
 
 	// Ação de tentar andar até em direção a um ponto
 	public async Task AndarAte(Vector2 posicaoAlvo)
 	{
-		Vector2 velocidade = Vector2.Zero;
-
-		float delta = (float)GetPhysicsProcessDeltaTime();
-
-		if (posicaoAlvo != Vector2.Zero)
+		if(EstadoPersonagem != Estado.PARADO)
 		{
-			RaioCalculo.TargetPosition = posicaoAlvo - Position;
-			velocidade = RaioCalculo.TargetPosition.Normalized() * Status["Velocidade"];
-		}
-		else
-        {
-            velocidade.X = Mathf.MoveToward(velocidade.X * 0.3f, 0, Status["Velocidade"] * delta);
-            velocidade.Y = Mathf.MoveToward(velocidade.Y * 0.3f, 0, Status["Velocidade"] * delta);
-        }
+			Vector2 velocidade = Vector2.Zero;
 
-		Velocity = velocidade;
-		MoveAndSlide();
+			float delta = (float)GetPhysicsProcessDeltaTime();
+
+			if (posicaoAlvo != Vector2.Zero)
+			{
+				RaioDirecao.TargetPosition = posicaoAlvo - Position;
+				velocidade = RaioDirecao.TargetPosition.Normalized() * Status["Velocidade"];
+			}
+			else
+			{
+				velocidade.X = Mathf.MoveToward(velocidade.X * 0.3f, 0, Status["Velocidade"] * delta);
+				velocidade.Y = Mathf.MoveToward(velocidade.Y * 0.3f, 0, Status["Velocidade"] * delta);
+			}
+
+			Velocity = velocidade;
+			MoveAndSlide();
+		}
 
 	}
 
@@ -168,6 +211,22 @@ public partial class Personagem : CharacterBody2D
 	public void TomarDano(int dano, string membro)
 	{
 		Status[membro] -= dano;
+	}
+
+	public void Morrer()
+	{
+		Node sala = GetTree().CurrentScene;
+		if((GD.Randi() % 100) < 5 || Especial)
+		{
+			var cenaMorto = GD.Load<PackedScene>("res://Personagens/AreaMorto/morto.tscn");
+
+			Morto areaMorto = cenaMorto.Instantiate<Morto>();
+
+			areaMorto.Position = Position;
+			areaMorto.AspectoDoMorto = AspectoPersonagem;
+
+			sala.AddChild(areaMorto);
+		}
 	}
 
 	// Cálculo para qual membro será ferido e tranferência do ataque
@@ -201,13 +260,19 @@ public partial class Personagem : CharacterBody2D
 	}
 
 	// Ataque fisico básico
-	public void PrepararAtaqueCurto(Personagem personagemAlvo, int dano)
+	public void PrepararAtaqueCurto(Node2D personagemAlvo, int dano)
 	{
 		if (EstarAoAlcance())
 		{
-			Atacar(personagemAlvo, dano);
-			AnimePersonagem("Ataque Curto");
-			return ;
+			if(personagemAlvo is Personagem)
+			{
+				Atacar((Personagem)personagemAlvo, dano);
+				AnimePersonagem("Ataque Curto");
+			}
+			else if(personagemAlvo is TileMapLayer)
+			{
+				return;
+			}
 		}
 	}
 

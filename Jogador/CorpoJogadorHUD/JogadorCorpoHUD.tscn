@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://c75y4ykdry7pm"]
 
-[ext_resource type="Texture2D" uid="uid://c0w54jwqcif2f" path="res://Tile Sets/HUDJogador/CabeçaHUD.png" id="1_imr8n"]
-[ext_resource type="Texture2D" uid="uid://bvai6nf5dyr77" path="res://Tile Sets/HUDJogador/TroncoHUD.png" id="2_tqh2e"]
-[ext_resource type="Texture2D" uid="uid://bq8ruwkh3rq0h" path="res://Tile Sets/HUDJogador/BraçoHUD.png" id="3_c3hjd"]
-[ext_resource type="Texture2D" uid="uid://8wd43iq35psm" path="res://Tile Sets/HUDJogador/PernaHUD.png" id="4_iy0g1"]
+[ext_resource type="Texture2D" uid="uid://c0w54jwqcif2f" path="res://Sprites/HUDJogador/CabeçaHUD.png" id="1_imr8n"]
+[ext_resource type="Texture2D" uid="uid://bvai6nf5dyr77" path="res://Sprites/HUDJogador/TroncoHUD.png" id="2_tqh2e"]
+[ext_resource type="Texture2D" uid="uid://bq8ruwkh3rq0h" path="res://Sprites/HUDJogador/BraçoHUD.png" id="3_c3hjd"]
+[ext_resource type="Texture2D" uid="uid://8wd43iq35psm" path="res://Sprites/HUDJogador/PernaHUD.png" id="4_iy0g1"]
 
 [node name="JogadorCorpoHUD" type="Control" unique_id=1307488085]
 layout_mode = 3

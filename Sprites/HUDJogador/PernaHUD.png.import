@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0w54jwqcif2f"
-path="res://.godot/imported/CabeçaHUD.png-c63c612cef739d6dab518b51a8f38de5.ctex"
+uid="uid://8wd43iq35psm"
+path="res://.godot/imported/PernaHUD.png-068027cefc0247ded7e6381f17ca5fe2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Tile Sets/HUDJogador/CabeçaHUD.png"
-dest_files=["res://.godot/imported/CabeçaHUD.png-c63c612cef739d6dab518b51a8f38de5.ctex"]
+source_file="res://Sprites/HUDJogador/PernaHUD.png"
+dest_files=["res://.godot/imported/PernaHUD.png-068027cefc0247ded7e6381f17ca5fe2.ctex"]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture_atlas"
 type="Texture2D"
-uid="uid://uapodbp7fw7g"
-path="res://.godot/imported/terra03.png-e1cbd424f612d0ce4f2c6892889a5d83.res"
+uid="uid://cucie2pnsuwow"
+path="res://.godot/imported/terra02.png-9c9f71850a73a4b9ef37c82e56de62a2.res"
 group_file="res://Tile Sets/Tilesets/Tile Sets Terra.png"
 valid=true
 [deps]
 
 
-source_file="res://Tile Sets/Tilesets/terra03.png"
-dest_files=["res://.godot/imported/terra03.png-e1cbd424f612d0ce4f2c6892889a5d83.res"]
+source_file="res://Sprites/Tilesets/terra02.png"
+dest_files=["res://.godot/imported/terra02.png-9c9f71850a73a4b9ef37c82e56de62a2.res"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dearflbb3fpwb"
-path="res://.godot/imported/Tile Sets Terra.png-1946c1e489bb7dbf0baa5f3f72f86ea5.ctex"
+uid="uid://evg7ebj1e7wo"
+path="res://.godot/imported/Player.png-0662117005c6b9039deb63a286c8efe4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Tile Sets/Tilesets/Tile Sets Terra.png"
-dest_files=["res://.godot/imported/Tile Sets Terra.png-1946c1e489bb7dbf0baa5f3f72f86ea5.ctex"]
+source_file="res://Sprites/Player.png"
+dest_files=["res://.godot/imported/Player.png-0662117005c6b9039deb63a286c8efe4.ctex"]
 
 [params]
 

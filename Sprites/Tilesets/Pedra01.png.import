@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bq8ruwkh3rq0h"
-path="res://.godot/imported/BraçoHUD.png-6ecc3da7663dfe4deefc8593eb1d1ec2.ctex"
+uid="uid://be8pcxlgggl6d"
+path="res://.godot/imported/Pedra01.png-092267fb73254a3e40f27cce704384ee.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Tile Sets/HUDJogador/BraçoHUD.png"
-dest_files=["res://.godot/imported/BraçoHUD.png-6ecc3da7663dfe4deefc8593eb1d1ec2.ctex"]
+source_file="res://Sprites/Tilesets/Pedra01.png"
+dest_files=["res://.godot/imported/Pedra01.png-092267fb73254a3e40f27cce704384ee.ctex"]
 
 [params]
 

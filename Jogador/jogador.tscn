@@ -1,38 +1,33 @@
-[gd_scene format=3 uid="uid://cx7n62qxyfe1n"]
+[gd_scene format=3 uid="uid://cp2g5mxpkwq6d"]
 
 [ext_resource type="Script" uid="uid://cbwoflh77el4j" path="res://Jogador/Jogador.cs" id="1_088gh"]
-[ext_resource type="Texture2D" uid="uid://evg7ebj1e7wo" path="res://Tile Sets/Player.png" id="2_damf5"]
+[ext_resource type="PackedScene" uid="uid://gocorerbo7rr" path="res://Personagens/personagem.tscn" id="1_damf5"]
 [ext_resource type="PackedScene" uid="uid://c75y4ykdry7pm" path="res://Jogador/CorpoJogadorHUD/JogadorCorpoHUD.tscn" id="3_damf5"]
+[ext_resource type="Script" uid="uid://ctlgafiye57do" path="res://Armas/Arma.cs" id="3_janmr"]
+[ext_resource type="Script" uid="uid://dbpwunucptyst" path="res://ComportamentosIA/Comportamento.cs" id="4_e1rp1"]
+[ext_resource type="Script" uid="uid://dsbukf10jav2j" path="res://Aspectos/Aspecto.cs" id="5_f3cih"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_7xlsb"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_damf5")
-}],
-"loop": 1,
-"name": &"Baixo Parado",
-"speed": 5.0
-}]
+[sub_resource type="Resource" id="Resource_y45st"]
+script = ExtResource("3_janmr")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2y62h"]
-size = Vector2(46, 52)
+[sub_resource type="Resource" id="Resource_t8kyd"]
+script = ExtResource("4_e1rp1")
 
-[node name="Jogador" type="CharacterBody2D" unique_id=1753218373]
+[sub_resource type="Resource" id="Resource_osg5y"]
+script = ExtResource("5_f3cih")
+
+[node name="Jogador" unique_id=1753218373 instance=ExtResource("1_damf5")]
 script = ExtResource("1_088gh")
+Armas = Array[ExtResource("3_janmr")]([SubResource("Resource_y45st")])
+SerieComportamentos = Array[ExtResource("4_e1rp1")]([SubResource("Resource_t8kyd")])
+AspectoPersonagem = SubResource("Resource_osg5y")
 
-[node name="Animação Jogador" type="AnimatedSprite2D" parent="." unique_id=1270425994]
-scale = Vector2(0.49999997, 0.52)
-sprite_frames = SubResource("SpriteFrames_7xlsb")
-animation = &"Baixo Parado"
+[node name="Visão" parent="." index="4" unique_id=264130085]
+visible = false
 
-[node name="Colisão Jogador" type="CollisionShape2D" parent="." unique_id=2069188713]
-position = Vector2(4, -14)
-shape = SubResource("RectangleShape2D_2y62h")
+[node name="HUD Jogador" type="CanvasLayer" parent="." index="5" unique_id=1446077829]
 
-[node name="HUD Jogador" type="CanvasLayer" parent="." unique_id=1629645474]
-
-[node name="JogadorCorpoHUD" parent="HUD Jogador" unique_id=1307488085 instance=ExtResource("3_damf5")]
+[node name="JogadorCorpoHUD" parent="HUD Jogador" index="0" unique_id=1307488085 instance=ExtResource("3_damf5")]
 offset_left = -431.44003
 offset_top = 494.912
 offset_right = -748.56006

@@ -15,7 +15,7 @@ public partial class Comportamento : Resource
 	// Controlador de comportamentos de um NPC, chamando suas ações relativas
 	public virtual void AtiveComportamento()
 	{
-		GD.Print("Esse é o comportamento padrão");
+		// GD.Print("Esse é o comportamento padrão");
 		return;
 	}
 	public virtual void OnChamouAtencao()

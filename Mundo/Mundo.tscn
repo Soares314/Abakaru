@@ -97,3 +97,12 @@ tile_set = SubResource("TileSet_3k0jn")
 
 [node name="Jogador" parent="." unique_id=1753218373 instance=ExtResource("3_mh57a")]
 position = Vector2(325, 465)
+Status = Dictionary[String, int]({
+"AlcanceAtaque": 100,
+"Braços": 10,
+"Cabeça": 10,
+"DanoNormal": 2,
+"Peitoral": 10,
+"Pernas": 10,
+"Velocidade": 300
+})

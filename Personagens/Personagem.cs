@@ -18,9 +18,8 @@ public partial class Personagem : CharacterBody2D
 	[Export]
 	public Dictionary<string, int> Status = new Dictionary<string, int>()
 	{
-		{ "DanoNormal", 2},
+		{ "Força", 2},
 		{ "Velocidade", 300},
-		{ "AlcanceAtaque", 100 },
 		{ "Cabeça", 10 },
 		{ "Pernas", 10 },
 		{ "Braços", 10 },
@@ -37,11 +36,11 @@ public partial class Personagem : CharacterBody2D
 	};
 
 	[Export]
-	public Array<Arma> Armas = [new Arma()];
+	public Array<Arma> Armas = [];
 	Estado EstadoPersonagem = Estado.EM_ACAO;
 
 	[Export]
-	public Array<Comportamento> SerieComportamentos = [new Comportamento()];
+	public Array<Comportamento> SerieComportamentos = [new MorteHumana()];
 	[Export]	
 	public Aspecto AspectoPersonagem = new Aspecto();
 	[Export]
@@ -106,20 +105,21 @@ public partial class Personagem : CharacterBody2D
 	}
 
 	// Verifica se o ataque está ao alcance do personagem
-	public bool EstarAoAlcance()
+	public bool EstarAoAlcance(int alcance, GodotObject alvo = null)
 	{
-		RaioDirecao.TargetPosition *= Status["AlcanceAtaque"];
+		RaioDirecao.TargetPosition *= alcance;
 
 		if (RaioDirecao.IsColliding())
 		{
-			RaioDirecao.TargetPosition = RaioDirecao.TargetPosition.Normalized();
-			return true;
+			if(RaioDirecao.GetCollider() == alvo)
+			{
+				RaioDirecao.TargetPosition = RaioDirecao.TargetPosition.Normalized();
+				return true;
+			}
 		}
-		else
-		{
-			RaioDirecao.TargetPosition = RaioDirecao.TargetPosition.Normalized();
-			return false;
-		}
+
+		RaioDirecao.TargetPosition = RaioDirecao.TargetPosition.Normalized();
+		return false;
 	}
 
 	public async Task EstabelecerRota(CaminhoAutomatizado rota)
@@ -213,17 +213,17 @@ public partial class Personagem : CharacterBody2D
 		Status[membro] -= dano;
 	}
 
-	public void Morrer()
+	public virtual void Morrer()
 	{
 		Node sala = GetTree().CurrentScene;
 		if((GD.Randi() % 100) < 5 || Especial)
 		{
 			var cenaMorto = GD.Load<PackedScene>("res://Personagens/AreaMorto/morto.tscn");
 
-			Morto areaMorto = cenaMorto.Instantiate<Morto>();
+			Item areaMorto = cenaMorto.Instantiate<Item>();
 
 			areaMorto.Position = Position;
-			areaMorto.AspectoDoMorto = AspectoPersonagem;
+			areaMorto.ItemNoChao = AspectoPersonagem;
 
 			sala.AddChild(areaMorto);
 		}
@@ -260,18 +260,14 @@ public partial class Personagem : CharacterBody2D
 	}
 
 	// Ataque fisico básico
-	public void PrepararAtaqueCurto(Node2D personagemAlvo, int dano)
+	public void PrepararAtaqueCurto(Node2D personagemAlvo, int dano, int alcance)
 	{
-		if (EstarAoAlcance())
+		if (personagemAlvo == null || EstarAoAlcance(alcance, personagemAlvo))
 		{
 			if(personagemAlvo is Personagem)
 			{
 				Atacar((Personagem)personagemAlvo, dano);
 				AnimePersonagem("Ataque Curto");
-			}
-			else if(personagemAlvo is TileMapLayer)
-			{
-				return;
 			}
 		}
 	}

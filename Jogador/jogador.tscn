@@ -21,6 +21,7 @@ script = ExtResource("1_088gh")
 Armas = Array[ExtResource("3_janmr")]([SubResource("Resource_y45st")])
 SerieComportamentos = Array[ExtResource("4_e1rp1")]([SubResource("Resource_t8kyd")])
 AspectoPersonagem = SubResource("Resource_osg5y")
+Especial = true
 
 [node name="Visão" parent="." index="4" unique_id=264130085]
 visible = false

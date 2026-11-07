@@ -33,14 +33,14 @@ public partial class Agressivo : Comportamento
 
 				_ = personagem.AndarAte(Alvo.GlobalPosition);
 
-				personagem.PrepararAtaqueCurto(Alvo, personagem.Status["DanoNormal"]);
+				personagem.Armas[0].Usar(personagem, Alvo);
 			}
 			
 			if(Perseguindo == true)
 			{
 				_ = personagem.AndarAte(Alvo.GlobalPosition);
 
-				personagem.PrepararAtaqueCurto(Alvo, personagem.Status["DanoNormal"]);
+			    personagem.Armas[0].Usar(personagem, Alvo);
 			}
 		}
 	}

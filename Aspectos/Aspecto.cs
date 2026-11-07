@@ -10,7 +10,8 @@ public partial class Aspecto : Resource
 	{
 		jogador = jogadorQueComeu;
 	}
-	// Controlador de comportamentos de um NPC, chamando suas ações relativas
+
+	// Controlador de comportamentos de um NPC, chamado todo frame
 	public virtual void RodarAspecto()
 	{
 		GD.Print("Esse é o aspecto padrão com aplificação", Amplificador);

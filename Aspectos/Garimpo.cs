@@ -3,9 +3,21 @@ using Godot;
 [GlobalClass]
 public partial class Garimpo : Aspecto
 {
-	// Controlador de comportamentos de um NPC, chamando suas ações relativas
-	public override void RodarAspecto()
+	public override void InicializarAspecto(Jogador jogadorQueComeu)
 	{
+		base.InicializarAspecto(jogadorQueComeu);
+
 		
 	}
+
+    // Controlador de comportamentos de um NPC, chamando suas ações relativas
+    protected override void Dispose(bool disposing)
+    {
+		if (disposing)
+		{
+			
+		}
+    }
+
+	
 }

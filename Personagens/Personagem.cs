@@ -130,9 +130,27 @@ public partial class Personagem : CharacterBody2D
 
 		await AndarAte(posicaoPonto);
 
+		Scale = new Vector2(1f/rota.Scale.X, 1f/rota.Scale.Y);
+
 		Reparent(rota.RotaPersonagem);
 
 		GetTree().CurrentScene.AddChild(rota);
+	}
+
+	public CaminhoAutomatizado CalcularReto(Vector2 direcao, float tamanho = 100)
+	{
+
+		Curve2D curvaReta = GD.Load<Curve2D>("res://ComportamentosIA/Formas de Andar/Reto.tres");
+
+		var cenaCaminho = GD.Load<PackedScene>("res://Personagens/Caminho Automatizado/caminho_automatizado.tscn");
+		CaminhoAutomatizado caminhoAuto = cenaCaminho.Instantiate<CaminhoAutomatizado>();
+
+		caminhoAuto.Curve = curvaReta;
+		caminhoAuto.Scale *= tamanho;
+		caminhoAuto.Rotation = direcao.Angle();
+
+
+		return caminhoAuto;
 	}
 
 	// Verifica o perimetro ao redor da sala que estar para instanciar a curva de andar circulos

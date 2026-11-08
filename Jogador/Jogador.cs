@@ -3,12 +3,23 @@ using Godot.Collections;
 
 public partial class Jogador : Personagem
 {
+	public JogadorCorpoHud HUDjogador;
+
 	[Signal]
 	public delegate void PlayerInteractedEventHandler(GodotObject interactedObject);
 	private GodotObject CollidingObject;
 	public Resource NaZonaDe = null;
 
 	public Array<Aspecto> AspectosJogador;
+	public float Ansia = 0.01f;
+
+    public override void _Ready()
+    {
+        base._Ready();
+
+		HUDjogador = GetNode<JogadorCorpoHud>("HUD Jogador/JogadorCorpoHUD");
+    }
+
 
 	public void GetInput(float delta)
 	{
@@ -77,10 +88,13 @@ public partial class Jogador : Personagem
 				if (AspectosJogador.Contains(NaZonaDe as Aspecto))
 				{
 					AspectosJogador[AspectosJogador.IndexOf(NaZonaDe as Aspecto)].Amplificador += 1f;
+					
+					AspectosJogador[AspectosJogador.IndexOf(NaZonaDe as Aspecto)].InicializarAspecto(this);
 				}
 				else
 				{
 					AspectosJogador.Add(NaZonaDe as Aspecto);
+					(NaZonaDe as Aspecto).InicializarAspecto(this);
 				}
 			}
 			// Pegar objeto

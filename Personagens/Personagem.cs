@@ -12,7 +12,6 @@ public partial class Personagem : CharacterBody2D
 	public Vector2 PosicaoAnterior;
 	public RayCast2D RaioDirecao;
 
-	private CaminhoAutomatizado RotaPersonagem;
 	private Area2D AreaVisao;
 
 	[Export]
@@ -26,6 +25,18 @@ public partial class Personagem : CharacterBody2D
 		{ "Peitoral", 10}
 	};
 
+	public Dictionary<string, int> StatusAtual;
+
+	public Dictionary<string, int> Amplificadores = new Dictionary<string, int>()
+	{
+		{ "Força", 1 },
+		{ "Velocidade", 1 },
+		{ "Cabeça", 1 },
+		{ "Pernas", 1 },
+		{ "Braços", 1 },
+		{ "Peitoral", 1 }
+	};
+
 	[Export]
 	public Dictionary<string, float> Precisao = new Dictionary<string, float>()
 	{
@@ -36,7 +47,9 @@ public partial class Personagem : CharacterBody2D
 	};
 
 	[Export]
-	public Array<Arma> Armas = [];
+	public Array<Arma> Armas = [new Arma(), new Arma()];
+	[Export]
+	public Dictionary<string, int> Municao;
 	Estado EstadoPersonagem = Estado.EM_ACAO;
 
 	[Export]
@@ -49,16 +62,25 @@ public partial class Personagem : CharacterBody2D
 	public delegate void ChamouAtencaoEventHandler();
 	private bool VisaoColidiuComTile = false;
 
+	public float ErroCritico = 0.005f;
+
     public override void _Ready()
     {
         RaioDirecao = GetNodeOrNull<RayCast2D>("Alcance Personagem");
 
 		AreaVisao = GetNodeOrNull<Area2D>("Visão");
  
-		if(GetParent() is CaminhoAutomatizado)
+		StatusAtual = new Dictionary<string, int>()
 		{
-			RotaPersonagem = GetParent<CaminhoAutomatizado>();
-		}
+			{ "Força", 2},
+			{ "Velocidade", 300},
+			{ "Cabeça", 10 },
+			{ "Pernas", 10 },
+			{ "Braços", 10 },
+			{ "Peitoral", 10}
+		};
+
+		StatusAtual = Status.Duplicate();
 
 		foreach (Comportamento comportamento in SerieComportamentos)
 		{
@@ -77,6 +99,11 @@ public partial class Personagem : CharacterBody2D
 
 		// Atualiza RaioDirecao para indicar a direção que está e e sua área de visão
 		RaioDirecao.TargetPosition = (GlobalPosition - PosicaoAnterior).Normalized();
+
+		/*if(!(this is Jogador))
+		{
+			GD.Print("Alcance antes antes:", RaioDirecao.TargetPosition);
+		}*/
 
 		if (RaioDirecao.TargetPosition.LengthSquared() > 0.01f)
 		{
@@ -101,13 +128,15 @@ public partial class Personagem : CharacterBody2D
 	// Para personagem olhar e retornar os personagens que está olhando
 	public bool Olhou(Node objeto)
 	{
+		// GD.Print("Eles está olhando? ", AreaVisao.OverlapsBody(objeto));
 		return AreaVisao.OverlapsBody(objeto);
 	}
 
 	// Verifica se o ataque está ao alcance do personagem
-	public bool EstarAoAlcance(int alcance, GodotObject alvo = null)
+	public bool EstarAoAlcance(int alcance, Node2D alvo = null)
 	{
 		RaioDirecao.TargetPosition *= alcance;
+		RaioDirecao.ForceRaycastUpdate();
 
 		if (RaioDirecao.IsColliding())
 		{
@@ -122,22 +151,26 @@ public partial class Personagem : CharacterBody2D
 		return false;
 	}
 
+	// Começa a seguir uma rota indicada
 	public async Task EstabelecerRota(CaminhoAutomatizado rota)
 	{
 		// Jogador se move até o ponto do caminho
-		Vector2 local = rota.Curve.GetPointPosition(0);  
+		/*Vector2 local = rota.Curve.GetPointPosition(0);  
 		Vector2 posicaoPonto = rota.ToGlobal(local);
 
 		await AndarAte(posicaoPonto);
-
-		Scale = new Vector2(1f/rota.Scale.X, 1f/rota.Scale.Y);
-
-		Reparent(rota.RotaPersonagem);
+		*/
+		rota.ObjetoMovido = this;
+		rota.Position = Position;
 
 		GetTree().CurrentScene.AddChild(rota);
+
+		//Scale = new Vector2(Scale.X/rota.Scale.X, Scale.Y/rota.Scale.Y);
+
+		Reparent(rota.RotaPersonagem);
 	}
 
-	public CaminhoAutomatizado CalcularReto(Vector2 direcao, float tamanho = 100)
+	public CaminhoAutomatizado CalcularReto(Vector2 direcao, float tamanho = 300)
 	{
 
 		Curve2D curvaReta = GD.Load<Curve2D>("res://ComportamentosIA/Formas de Andar/Reto.tres");
@@ -210,13 +243,14 @@ public partial class Personagem : CharacterBody2D
 
 			if (posicaoAlvo != Vector2.Zero)
 			{
-				RaioDirecao.TargetPosition = posicaoAlvo - Position;
-				velocidade = RaioDirecao.TargetPosition.Normalized() * Status["Velocidade"];
+				RaioDirecao.TargetPosition = (posicaoAlvo - Position).Normalized();
+				// GD.Print("Posição que está indo: ", RaioDirecao.TargetPosition);
+				velocidade = RaioDirecao.TargetPosition * StatusAtual["Velocidade"];
 			}
 			else
 			{
-				velocidade.X = Mathf.MoveToward(velocidade.X * 0.3f, 0, Status["Velocidade"] * delta);
-				velocidade.Y = Mathf.MoveToward(velocidade.Y * 0.3f, 0, Status["Velocidade"] * delta);
+				velocidade.X = Mathf.MoveToward(velocidade.X * 0.3f, 0, StatusAtual["Velocidade"] * delta);
+				velocidade.Y = Mathf.MoveToward(velocidade.Y * 0.3f, 0, StatusAtual["Velocidade"] * delta);
 			}
 
 			Velocity = velocidade;
@@ -225,18 +259,26 @@ public partial class Personagem : CharacterBody2D
 
 	}
 
-	// Tomar dano
-	public void TomarDano(int dano, string membro)
+	// Tomar dano ou diminuir status
+	public async void TomarDano(int dano, string membro)
 	{
-		Status[membro] -= dano;
+		StatusAtual[membro] -= dano;
+		GD.Print("Membro:", membro);
+		GD.Print("Vida:", StatusAtual[membro]);
+
+		if(StatusAtual[membro] < 0 && Amplificadores[membro] > 1)
+		{
+			Amplificadores[membro]--;
+			StatusAtual[membro] = Status[membro];
+		}
 	}
 
 	public virtual void Morrer()
 	{
-		Node sala = GetTree().CurrentScene;
 		if((GD.Randi() % 100) < 5 || Especial)
 		{
-			var cenaMorto = GD.Load<PackedScene>("res://Personagens/AreaMorto/morto.tscn");
+			Node sala = GetTree().CurrentScene;
+			var cenaMorto = GD.Load<PackedScene>("res://Item/item.tscn");
 
 			Item areaMorto = cenaMorto.Instantiate<Item>();
 
@@ -245,6 +287,8 @@ public partial class Personagem : CharacterBody2D
 
 			sala.AddChild(areaMorto);
 		}
+
+		QueueFree();
 	}
 
 	// Cálculo para qual membro será ferido e tranferência do ataque
@@ -256,36 +300,49 @@ public partial class Personagem : CharacterBody2D
 		{
 			TotalProp += item;
 		}
+		//GD.Print("Probalidade Total:", TotalProp);
 
 		if(TotalProp == 1f)
 		{
 			float numeroAleatorio = GD.Randf();
+			float acumulativo = 0.0f;
 
 			foreach (string membro in Precisao.Keys)
 			{
 				if(numeroAleatorio < Precisao[membro])
 				{
 					personagemAlvo.TomarDano(dano, membro);
+					break;
 				}
+				acumulativo += Precisao[membro]; 
 			}
 		}
 		else
 		{
-			GD.PushError($"Formato de descrição da precissão de {this.Name} inválidos");
+			GD.Print($"Formato de descrição da precissão de {Name} inválidos");
 			return;
 		}
 
 	}
 
 	// Ataque fisico básico
-	public void PrepararAtaqueCurto(Node2D personagemAlvo, int dano, int alcance)
+	public void PrepararAtaqueCurto(Node2D personagemAlvo, int dano, int alcance, string animacao = "Soco")
 	{
 		if (personagemAlvo == null || EstarAoAlcance(alcance, personagemAlvo))
 		{
+			//GD.Print("Estar no alcance");
 			if(personagemAlvo is Personagem)
 			{
-				Atacar((Personagem)personagemAlvo, dano);
-				AnimePersonagem("Ataque Curto");
+				if(GD.Randf() < ErroCritico)
+				{
+					Atacar(this, dano);
+				}
+				else
+				{
+					Atacar((Personagem)personagemAlvo, dano);
+				}
+				
+				AnimePersonagem(animacao);
 			}
 		}
 	}

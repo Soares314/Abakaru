@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://d2opynywyadiq"]
+
+[ext_resource type="PackedScene" uid="uid://gocorerbo7rr" path="res://Personagens/personagem.tscn" id="1_ufkei"]
+[ext_resource type="Script" uid="uid://dbpwunucptyst" path="res://ComportamentosIA/Comportamento.cs" id="3_8gh60"]
+[ext_resource type="Script" uid="uid://b2ry5t4y51frx" path="res://ComportamentosIA/MorteHumana.cs" id="3_ufkei"]
+[ext_resource type="Script" uid="uid://bsiju1y2qoewh" path="res://ComportamentosIA/Agressivo.cs" id="4_axsx1"]
+[ext_resource type="Script" uid="uid://cgxgxssta85pk" path="res://ComportamentosIA/AndarReto.cs" id="5_tjwwp"]
+[ext_resource type="Script" uid="uid://b6r0tu3r8pb0e" path="res://Aspectos/Garimpo.cs" id="6_1kvoo"]
+[ext_resource type="Texture2D" uid="uid://bg6qwfnp6kstw" path="res://Sprites/Inimigos/GarimpeiroTileSheet.png" id="7_vgky4"]
+
+[sub_resource type="Resource" id="Resource_phjdv"]
+script = ExtResource("3_ufkei")
+
+[sub_resource type="Resource" id="Resource_y75xe"]
+script = ExtResource("4_axsx1")
+metadata/_custom_type_script = "uid://bsiju1y2qoewh"
+
+[sub_resource type="Resource" id="Resource_7aiwb"]
+script = ExtResource("5_tjwwp")
+tamanho = 100.0
+metadata/_custom_type_script = "uid://cgxgxssta85pk"
+
+[sub_resource type="Resource" id="Resource_8gh60"]
+script = ExtResource("6_1kvoo")
+metadata/_custom_type_script = "uid://b6r0tu3r8pb0e"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e7iiq"]
+atlas = ExtResource("7_vgky4")
+region = Rect2(0, 0, 134, 200)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nif1u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e7iiq")
+}],
+"loop": 1,
+"name": &"AndarBaixo",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_clvdy"]
+resource_name = "Andar"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4s44s"]
+_data = {
+&"Andar": SubResource("Animation_clvdy")
+}
+
+[node name="Garimpeiro" unique_id=1753218373 instance=ExtResource("1_ufkei")]
+Status = Dictionary[String, int]({
+"Braços": 10,
+"Cabeça": 10,
+"Força": 2,
+"Peitoral": 10,
+"Pernas": 10,
+"Velocidade": 150
+})
+SerieComportamentos = Array[ExtResource("3_8gh60")]([SubResource("Resource_phjdv"), SubResource("Resource_y75xe"), SubResource("Resource_7aiwb")])
+AspectoPersonagem = SubResource("Resource_8gh60")
+
+[node name="Sprites Jogador" parent="." index="0" unique_id=1270425994]
+sprite_frames = SubResource("SpriteFrames_nif1u")
+animation = &"AndarBaixo"
+
+[node name="Animação Jogador" parent="Sprites Jogador" index="0" unique_id=41139774]
+libraries/ = SubResource("AnimationLibrary_4s44s")

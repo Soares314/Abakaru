@@ -7,27 +7,25 @@ public partial class CaminhoAutomatizado : Path2D
 {
 	public enum EstadoPersonagem {FRENTE, TRAS}
 	public PathFollow2D RotaPersonagem;
-	private PhysicsBody2D ObjetoMovido = null;
+	public PhysicsBody2D ObjetoMovido;
 	private Area2D AreaColisao;
 	public bool DetectarColisao = false;
 	[Signal]
     public delegate void ColidiuComTileEventHandler();
-	private float VelocidadeObjeto = 0.5f;
+	private float VelocidadeObjeto = 0.001f;
 	public EstadoPersonagem FrenteOuTras = EstadoPersonagem.FRENTE;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		RotaPersonagem = GetNode<PathFollow2D>("Rota Personagem");
-		ObjetoMovido = RotaPersonagem.GetChild<PhysicsBody2D>(0);
-
 		AreaColisao = GetNode<Area2D>("Detector Colisão");
 
 		// Define a velocidade que move o objeto
 		if(ObjetoMovido is Personagem)
 		{
 			Personagem objetoMovidoAsPersonagem = ObjetoMovido as Personagem;
-			VelocidadeObjeto = objetoMovidoAsPersonagem.Status["Velocidade"]/350f;
+			VelocidadeObjeto = objetoMovidoAsPersonagem.Status["Velocidade"] * 0.00001f;
 		}
 
 		if (DetectarColisao)
@@ -43,11 +41,11 @@ public partial class CaminhoAutomatizado : Path2D
 		switch (FrenteOuTras)
 		{
 		case EstadoPersonagem.TRAS:
-			RotaPersonagem.Progress -= VelocidadeObjeto;
+			RotaPersonagem.ProgressRatio -= VelocidadeObjeto;
 			break;
 
 		case EstadoPersonagem.FRENTE:
-			RotaPersonagem.Progress += VelocidadeObjeto;
+			RotaPersonagem.ProgressRatio += VelocidadeObjeto;
 			break;
 		}
 
@@ -60,10 +58,13 @@ public partial class CaminhoAutomatizado : Path2D
 			FrenteOuTras = EstadoPersonagem.TRAS;
 		}
 
+		/*
 		if (HaColisao())
 		{
+			GD.Print("Inverteu");
 			InverterOrdem();
 		}
+		*/
 
 	}
 
@@ -98,6 +99,7 @@ public partial class CaminhoAutomatizado : Path2D
 	public void AtivaDetectorColisao()
 	{
 		CollisionPolygon2D areaColisao = new CollisionPolygon2D();
+
 
 		Vector2[] pontosCurva = Curve.GetBakedPoints();
 

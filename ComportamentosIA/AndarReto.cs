@@ -14,7 +14,8 @@ public partial class AndarReto : Comportamento
 		{
 			CaminhoAutomatizado rotaReta = personagem.CalcularReto(direcao, tamanho);
 			_ = personagem.EstabelecerRota(rotaReta);
-			AndandoReto = false;
+            GD.Print("Terminou de estabelecer a rota");
+			AndandoReto = true;
 		}
 	}
 }

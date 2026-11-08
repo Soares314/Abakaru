@@ -18,13 +18,17 @@ animations = [{
 size = Vector2(35.333336, 45.333336)
 
 [node name="Personagem" type="CharacterBody2D" unique_id=1753218373]
+scale = Vector2(0.8, 0.8)
 script = ExtResource("1_4wglj")
 
-[node name="Animação Jogador" type="AnimatedSprite2D" parent="." unique_id=1270425994]
+[node name="Sprites Jogador" type="AnimatedSprite2D" parent="." unique_id=1270425994]
 position = Vector2(-1, 0)
 scale = Vector2(0.62, 0.655)
 sprite_frames = SubResource("SpriteFrames_7xlsb")
 animation = &"Baixo Parado"
+
+[node name="Animação Jogador" type="AnimationPlayer" parent="Sprites Jogador" unique_id=41139774]
+root_node = NodePath("../..")
 
 [node name="Colisão Jogador" type="CollisionShape2D" parent="." unique_id=2069188713]
 position = Vector2(4.5000005, -18)
@@ -33,8 +37,6 @@ shape = SubResource("RectangleShape2D_damf5")
 
 [node name="Alcance Personagem" type="RayCast2D" parent="." unique_id=428304891]
 target_position = Vector2(0, 1)
-
-[node name="Animação Jogador Real" type="AnimationPlayer" parent="." unique_id=41139774]
 
 [node name="Visão" type="Area2D" parent="." unique_id=264130085]
 

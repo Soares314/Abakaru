@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c75y4ykdry7pm"]
 
 [ext_resource type="Texture2D" uid="uid://c0w54jwqcif2f" path="res://Sprites/HUDJogador/CabeçaHUD.png" id="1_imr8n"]
+[ext_resource type="Script" uid="uid://58hcj8a23us7" path="res://Jogador/CorpoJogadorHUD/JogadorCorpoHud.cs" id="1_tqh2e"]
 [ext_resource type="Texture2D" uid="uid://bvai6nf5dyr77" path="res://Sprites/HUDJogador/TroncoHUD.png" id="2_tqh2e"]
 [ext_resource type="Texture2D" uid="uid://bq8ruwkh3rq0h" path="res://Sprites/HUDJogador/BraçoHUD.png" id="3_c3hjd"]
 [ext_resource type="Texture2D" uid="uid://8wd43iq35psm" path="res://Sprites/HUDJogador/PernaHUD.png" id="4_iy0g1"]
@@ -19,21 +20,21 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 3
+script = ExtResource("1_tqh2e")
 
-[node name="Cabeca" type="TextureRect" parent="." unique_id=641911105]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 12.6
-anchor_top = 1.1750001
-anchor_right = 16.275002
-anchor_bottom = 4.275
-offset_left = -4.0
-offset_top = -11.000004
-offset_right = -15.000061
-offset_bottom = -22.0
-grow_horizontal = 2
-size_flags_horizontal = 4
+[node name="Cabecas" type="HBoxContainer" parent="." unique_id=408330056]
+layout_mode = 0
+offset_left = 509.0
+offset_top = 37.0
+offset_right = 828.0
+offset_bottom = 150.0
+theme_override_constants/separation = 37
+
+[node name="Cabeca" type="TextureRect" parent="Cabecas" unique_id=641911105]
+layout_mode = 2
+offset_transform_position = Vector2(9, 88)
 texture = ExtResource("1_imr8n")
+expand_mode = 3
 
 [node name="Tronco" type="TextureRect" parent="." unique_id=611739497]
 layout_mode = 1

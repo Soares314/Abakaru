@@ -21,5 +21,6 @@ public partial class Comportamento : Resource
 	public virtual void OnChamouAtencao()
 	{
 		Ativo = false;
+		personagem.Reparent(personagem.GetTree().CurrentScene);
 	}
 }

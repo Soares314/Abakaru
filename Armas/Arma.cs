@@ -1,5 +1,6 @@
 using Godot;
 
+// Quando o personagem tiver euqipado com esse, vai valer como se tivesse sem arma
 [GlobalClass]
 public partial class Arma : Resource
 {
@@ -10,6 +11,6 @@ public partial class Arma : Resource
 
 	public virtual void Usar(Personagem personagem, Personagem personagemAlvo)
 	{
-		personagem.PrepararAtaqueCurto(personagemAlvo, Dano, Alcance);
+		personagem.PrepararAtaqueCurto(personagemAlvo, Dano * personagem.StatusAtual["Força"], Alcance);
 	}
 }

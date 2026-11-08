@@ -1,32 +1,32 @@
-[gd_scene format=3 uid="uid://cp2g5mxpkwq6d"]
+[gd_scene format=3 uid="uid://cx7n62qxyfe1n"]
 
 [ext_resource type="Script" uid="uid://cbwoflh77el4j" path="res://Jogador/Jogador.cs" id="1_088gh"]
 [ext_resource type="PackedScene" uid="uid://gocorerbo7rr" path="res://Personagens/personagem.tscn" id="1_damf5"]
 [ext_resource type="PackedScene" uid="uid://c75y4ykdry7pm" path="res://Jogador/CorpoJogadorHUD/JogadorCorpoHUD.tscn" id="3_damf5"]
 [ext_resource type="Script" uid="uid://ctlgafiye57do" path="res://Armas/Arma.cs" id="3_janmr"]
-[ext_resource type="Script" uid="uid://dbpwunucptyst" path="res://ComportamentosIA/Comportamento.cs" id="4_e1rp1"]
+[ext_resource type="Script" uid="uid://cgx03f8lrdsg2" path="res://Armas/PistolaSemiautomatica.cs" id="4_f3cih"]
 [ext_resource type="Script" uid="uid://dsbukf10jav2j" path="res://Aspectos/Aspecto.cs" id="5_f3cih"]
 
+[sub_resource type="Resource" id="Resource_xpu4g"]
+script = ExtResource("4_f3cih")
+metadata/_custom_type_script = "uid://cgx03f8lrdsg2"
+
 [sub_resource type="Resource" id="Resource_y45st"]
-script = ExtResource("3_janmr")
-
-[sub_resource type="Resource" id="Resource_t8kyd"]
-script = ExtResource("4_e1rp1")
-
-[sub_resource type="Resource" id="Resource_osg5y"]
 script = ExtResource("5_f3cih")
 
 [node name="Jogador" unique_id=1753218373 instance=ExtResource("1_damf5")]
 script = ExtResource("1_088gh")
-Armas = Array[ExtResource("3_janmr")]([SubResource("Resource_y45st")])
-SerieComportamentos = Array[ExtResource("4_e1rp1")]([SubResource("Resource_t8kyd")])
-AspectoPersonagem = SubResource("Resource_osg5y")
+Armas = Array[ExtResource("3_janmr")]([SubResource("Resource_xpu4g")])
+Municao = Dictionary[String, int]({
+"9mm": 10
+})
+AspectoPersonagem = SubResource("Resource_y45st")
 Especial = true
 
-[node name="Visão" parent="." index="4" unique_id=264130085]
+[node name="Visão" parent="." index="3" unique_id=264130085]
 visible = false
 
-[node name="HUD Jogador" type="CanvasLayer" parent="." index="5" unique_id=1446077829]
+[node name="HUD Jogador" type="CanvasLayer" parent="." index="4" unique_id=1446077829]
 
 [node name="JogadorCorpoHUD" parent="HUD Jogador" index="0" unique_id=1307488085 instance=ExtResource("3_damf5")]
 offset_left = -431.44003

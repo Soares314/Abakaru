@@ -13,7 +13,7 @@ public partial class Agressivo : Comportamento
 
 		if(AlvoCena == null)
 		{
-			Jogador jogadorNaCena = personagem.GetNodeOrNull<Jogador>("/root/Jogador");
+			Jogador jogadorNaCena = personagem.GetTree().CurrentScene.GetNodeOrNull<Jogador>("Jogador");
 			Alvo = jogadorNaCena;
 		}
 		else
